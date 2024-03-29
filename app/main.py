@@ -1,9 +1,18 @@
 # app/main.py
 from fastapi import FastAPI, status
+from fastapi.openapi.models import OpenAPI, Info
+from fastapi.openapi.utils import get_openapi
+from fastapi.openapi.docs import get_swagger_ui_html
+
 from app.configs import config
 from app.logger.logger import logger
+from app.api.routers import openai_router
 
-app = FastAPI()
+
+app = FastAPI(
+    title=f"{config.PROJECT_NAME} API"
+)
+app.include_router(openai_router.router)
 
 @app.get("/")
 def read_root():
