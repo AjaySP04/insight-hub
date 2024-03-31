@@ -13,20 +13,24 @@ To run the application, follow these steps:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/AjaySP04/insight-hub.git
    ```
 
 2. Navigate to the project directory:
     ```
-    cd InsightHub
+    cd insight-hub
     ```
 
 3. Create a `.env` file in the root directory of your project and define your environment variables:
     ```
+    # .env
+    # Project details
     PROJECT_NAME="InsightHub"
-    APP_HOST=0.0.0.0
+    PROJECT_DESCRIPTION="InsightHub is a project for our meaningful users"
+    APP_HOST=localhost
     APP_PORT=8000
     API_KEY=your_api_key
+    OPENAI_API_KEY=openai_api_key
     DATABASE_URL=your_database_url
     ```
 
