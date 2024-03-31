@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 from openai import OpenAI
 
-from app.chat.models import ChatInput
+from app.chat.models import ChatInput, ChatResponse
 from app.configs import config
 
 import openai
@@ -17,7 +17,7 @@ client = OpenAI(
 
 router = APIRouter()
 
-@router.post("/chat/")
+@router.post("/chat/", response_model=ChatResponse)
 async def chat_with_gpt(input_data: ChatInput):
     try:
         # Define your GPT prompt
@@ -32,6 +32,7 @@ async def chat_with_gpt(input_data: ChatInput):
             ],
             model="gpt-3.5-turbo",
         )
-        return {"response": chat_completion.choices[0].text.strip()}
+        message_content = chat_completion.choices[0].message.content
+        return ChatResponse(response=str(message_content).strip())
     except Exception as e:
-        return {"error": str(e)}
+        return ChatResponse(response=str(e))
