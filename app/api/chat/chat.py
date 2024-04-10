@@ -1,19 +1,15 @@
 # chat/chat.py
-
 from fastapi import APIRouter
 from openai import OpenAI
 
-from app.chat.models import ChatInput, ChatResponse
+from app.models.chat_model import ChatInput, ChatResponse
 from app.configs import config
-
-import openai
 
 # Initialize your OpenAI client using API key
 client = OpenAI(
     # This is the default and can be omitted
     api_key=config.OPENAI_API_KEY,
 )
-
 
 router = APIRouter()
 

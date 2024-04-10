@@ -1,3 +1,4 @@
+# models/chat_model.py
 from pydantic import BaseModel
 
 class ChatInput(BaseModel):
