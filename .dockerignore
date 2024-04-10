@@ -1,0 +1,31 @@
+# Exclude version control directories
+.git
+.svn
+.hg
+
+# Exclude Python bytecode files
+__pycache__
+*.pyc
+
+# Exclude any local development files or directories
+venv/
+.env
+
+# Exclude any log files
+logs/
+
+# Exclude any temporary files or caches
+*.log
+*.swp
+*.swo
+
+# Exclude any IDE-specific files
+.vscode/
+.idea/
+
+# Exclude any Docker-specific files
+.dockerignore
+
+# Exclude any test or documentation files
+tests/
+docs/

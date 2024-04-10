@@ -1,18 +1,33 @@
 # app/main.py
 from fastapi import FastAPI, status
-from fastapi.openapi.models import OpenAPI, Info
-from fastapi.openapi.utils import get_openapi
-from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import RedirectResponse
 
-from app.configs import config
 from app.logger.logger import logger
-from app.api.routers import openai_router
+from app.configs import config
+from app.db.mongo_db import MongoDB
+from app.api import app_router
 
 
 app = FastAPI(
-    title=f"{config.PROJECT_NAME} API"
+    title=f"{config.PROJECT_NAME} API",
+    version="1.0.0",
 )
-app.include_router(openai_router.router)
+
+app.include_router(app_router.router)
+
+@app.on_event("startup")
+async def startup_event():
+    await MongoDB.connect()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    await MongoDB.close()
+
+# Redirect to Swagger documentation on loading the API for demo purposes
+@app.get("/", include_in_schema=False)
+def redirect_to_swagger():
+    return RedirectResponse(url="/docs")
+
 
 @app.get("/")
 def read_root():

@@ -6,7 +6,7 @@ import os
 class MyFormatter(logging.Formatter):
     def format(self, record):
         record.filename = os.path.relpath(record.filename)
-        record.timestamp = self.formatTime(record, "%Y-%m-%d %H:%M:%S,%03d")
+        record.timestamp = self.formatTime(record, "%Y-%m-%d %H:%M:%S:%03d %Z")
         return super().format(record)
 
 # Configure logger
