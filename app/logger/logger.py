@@ -3,7 +3,7 @@ import logging
 import os
 
 # Custom formatter
-class MyFormatter(logging.Formatter):
+class LogFormatter(logging.Formatter):
     def format(self, record):
         record.filename = os.path.relpath(record.filename)
         record.timestamp = self.formatTime(record, "%Y-%m-%d %H:%M:%S:%03d %Z")
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)  # Set the logger level
 
 # Create and set formatter
-formatter = MyFormatter(fmt='%(levelname)s: [%(timestamp)s] %(filename)s:%(lineno)d - %(message)s')
+formatter = LogFormatter(fmt='%(levelname)s: [%(timestamp)s] %(filename)s:%(lineno)d - %(message)s')
 
 # Remove default handler added by basicConfig
 logger.handlers.clear()

@@ -17,7 +17,7 @@ async def create_user(user: User):
     user.updated_time = datetime.now(timezone.utc)
     user.last_login = None
     
-    user_dict = user.dict()
+    user_dict = user.model_dump()
     new_user = await MongoDB.insert_one(UserCollection, user_dict)
     user.id = new_user.inserted_id
     return user
@@ -66,12 +66,12 @@ async def update_user(user_id: str, user_data: User):
     existing_user = await MongoDB.find_one(UserCollection, {"_id": object_id})
     if existing_user:
         # Update the existing user data with the new data
-        existing_user.update(user_data.dict(exclude_unset=True))
+        existing_user.update(user_data.model_dump(exclude_unset=True))
         existing_user["updated_time"] = datetime.now(timezone.utc)
         updated_user = await MongoDB.update_one(UserCollection, {"_id": object_id}, existing_user)
 
         if updated_user:
-            return existing_user 
+            return updated_user 
         else:
             raise HTTPException(status_code=500, detail="Failed to update user")
     else:
