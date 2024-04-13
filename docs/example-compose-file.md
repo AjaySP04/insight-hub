@@ -6,7 +6,7 @@ services:
     container_name: insight_hub_backend
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8080:8080"
     env_file:
       - ./insight-hub/dev.env
     depends_on:
